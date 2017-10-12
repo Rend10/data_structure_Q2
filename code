@@ -1,0 +1,102 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+struct NodeList
+{
+    int Number;
+    string Name;
+    int grade1;
+    int grade2;
+    int grade3;
+    int average;
+    int Range;
+    NodeList *next;
+    NodeList(){Number=grade1=grade2=grade3=average=Range=0;Name='0';next=NULL;}
+    NodeList(int Num,string Na,int G1,int G2,int G3):Number(Num),Name(Na),grade1(G1),grade2(G2),grade3(G3)
+    {
+        Range=0;
+        next=NULL;
+    }
+
+};
+class List
+{
+private:
+    NodeList *first;
+public:
+    List()
+    {
+        NodeList *firstNode=new NodeList;
+        firstNode=first->next;
+    }
+    ~List()
+    {
+        delete [] first;
+    }
+//    NodeList Sort();
+    void input(int n);
+    void output();
+    void Average();
+//    void makeEmpty();
+};
+//void List::makeEmpty()
+//{
+//    NodeList *q;
+//    while(first->next!=NULL){
+//        q=first->next;
+//        first->next=q->next;
+//        delete q;
+//    }
+//}
+void List::input(int n)
+{
+    NodeList *newNode;
+    //makeEmpty();
+    int Num,G1,G2,G3;
+    string Na;
+    for(int i=0; i<n; i++)
+    {
+        cin>>Num>>Na>>G1>>G2>>G3;
+//        newNode->next=first->next;
+        newNode=new NodeList(Num,Na,G1,G2,G3);
+        if(newNode==NULL)
+        {
+            cout<<"memory Error"<<endl;
+            exit(1);
+        }
+        newNode->next=first->next;
+        first->next=newNode;
+    }
+}
+void List::output()
+{
+    NodeList *current=first->next;
+    while(current->next!=NULL)
+    {
+        cout<<current->Number<<" "<<current->Name<<" "<<current->average<<" "<<current->grade1<<" "<<current->grade2<<" "<<current->grade3<<" "<<current->Range<<endl;
+    }
+}
+void List::Average()
+{
+    NodeList *current=first;
+    while(current->next!=NULL)
+    {
+        current->average=(current->grade1+current->grade2+current->grade3)/3;
+        current=current->next;
+    }
+}
+//NodeList List::Sort()
+//{
+//
+//}
+int main()
+{
+    int n;
+    cin>>n;
+    List s;
+    s.input(n);
+    s.Average();
+    s.output();
+    cout << "Hello world!" << endl;
+    return 0;
+}
